@@ -11,11 +11,19 @@ Ys = np.array([-19.3, 30.4, 38.7, 5.52, -33.1, -77.3, 398.0, 406.0, 436.0, 320.0
 
 N = 24
 
-plt.plot(Xs, Ys)
-plt.show()
+# plt.plot(Xs, Ys)
+# plt.show()
 
 print('Distance: ', Xs.mean())
 print('Apparent: ', Ys.mean())
 print('Covariance: ', (sum((Xs-Xs.mean())*(Ys-Ys.mean()))/(N-1)))
-print(
-)
+Xs_std = np.std(Xs, ddof=1)
+Ys_std = np.std(Ys, ddof=1)
+correlation_coefficient = (sum((Xs-Xs.mean())/Xs_std*(Ys-Ys.mean())/Ys_std)/(N-1))
+print('Correlation coefficient: ', correlation_coefficient)
+
+slope_regression = correlation_coefficient * Ys_std/Xs_std
+print(f'Slope: {slope_regression:.2f}')
+
+intercept = Ys.mean() - slope_regression*Xs.mean()
+print(f'Intercept: {intercept:.2f}')
